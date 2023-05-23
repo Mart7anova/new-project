@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    //куда производится сборка
+    "outDir": "./dist/",
+    //подсвечивать места, где явно не указан тип
+    "noImplicitAny": true,
+    //способ модульной сборки
+    "module": "ESNext",
+    //спецификация в которую будет компилироваться код
+    "target": "es5",
+    //для испл react
+    "jsx": "react",
+    //компилятор будет обрабатывать не только TS, но и JS файлы
+    "allowJs": true,
+    //тип импорта
+    "moduleResolution": "node",
+    //позволяет работать с пакетами,
+    //которые испл common js (require() module.export),
+    //как с обычными пакетами, с помощью import и export
+    "esModuleInterop": true,
+    //если у пакета нет default import
+    //лоадеры вроде ts-loader или babel-loader автоматически их создают
+    //вместо: import * as React from "react";
+    //будет: import React from "react";
+    "allowSyntheticDefaultImports": true,
+  },
+  //Если есть переопределение модуля с "module":"commonjs" на "module":"ESnext"
+  //для tsc, webpack или другого инструмента сборки,
+  //можно установить переопределение для ts-node.
+  //Это необходимо потому, что ts-node не поддерживает никакой синтаксис модуля, кроме commonjs.
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}
