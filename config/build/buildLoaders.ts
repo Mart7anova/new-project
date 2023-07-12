@@ -15,7 +15,20 @@ export function buildLoaders(): webpack.RuleSetRule[] {
         exclude: /node_modules/,
     }
 
+    const cssLoader = {
+        test: /\.s[ac]ss$/i,
+        use: [
+            //создаёт стили из js сток
+            'style-loader',
+            //транслирует css в CommonJS
+            'css-loader',
+            //преобразовывает sass в css
+            'sass-loader',
+        ]
+    }
+
     return [
         typeScriptLoader,
+        cssLoader,
     ]
 }
