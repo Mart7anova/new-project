@@ -1,4 +1,4 @@
 export const f = (a: number): string => {
-    console.log('func')
+    console.log('funccc')
     return a.toString()
 }
