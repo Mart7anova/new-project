@@ -7,6 +7,7 @@ import {BuildOptions} from "./types/config";
 //png,jpeg,css
 
 export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
+    const {isDev} = options
 
     const typeScriptLoader = {
         //загрузит все файлы .ts и .tsx
@@ -21,9 +22,20 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         test: /\.s[ac]ss$/i,
         use: [
             //создаёт стили из js сток
-            options.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             //транслирует css в CommonJS
-            'css-loader',
+            {
+                loader: 'css-loader',
+                options: {
+                    // для использования css modules
+                    modules: {
+                        auto: (resPath: string)=>resPath.includes('.module.'),
+                        localIdentName: isDev
+                            ? '[path][name]__[local]--[hash:base64:8]'
+                            : '[hash:base64:8]'
+                    }
+                }
+            },
             //преобразовывает sass в css
             'sass-loader',
         ]
