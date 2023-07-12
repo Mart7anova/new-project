@@ -1,6 +1,7 @@
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import {BuildOptions} from "./types/config";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 export function buildPlugins({paths}: BuildOptions): webpack.WebpackPluginInstance[] {
 
@@ -12,5 +13,9 @@ export function buildPlugins({paths}: BuildOptions): webpack.WebpackPluginInstan
             template: paths.html
         }),        //показывает время сборки
         new webpack.ProgressPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].css',
+        }),
     ]
 }
